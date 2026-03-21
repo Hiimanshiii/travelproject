@@ -1,0 +1,525 @@
+body{
+    background-color: aliceblue;
+}
+.navbar{
+    height: 5rem;
+    background-color: white;
+}
+.fa-compass{
+    font-size: 2rem;
+    color: #fe424d;
+}
+
+.nav-link{
+    font-size: 1.2rem;
+    color: #222222 !important;
+}
+footer {
+    background-color: #000;   /* Pure black like your screenshot */
+    color: #fff;
+    padding: 1.2rem 0;
+    margin-top: 2rem;
+}
+
+.f-info {
+    width: 85%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Social Icons */
+.f-info-socials i {
+    font-size: 1.4rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    color: #fff;
+    transition: 0.3s ease;
+}
+
+.f-info-socials i:hover {
+    color: #ff385c;  /* Same red accent as your logo */
+    transform: scale(1.15);
+}
+
+/* Center copyright */
+.f-info div:nth-child(2) {
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+/* Links */
+.f-info-links a {
+    text-decoration: none;
+    color: #fff;
+    margin-left: 1.2rem;
+    font-size: 0.95rem;
+    transition: 0.3s ease;
+}
+
+.f-info-links a:hover {
+    color: #ff385c;  /* Matching red theme */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .f-info {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+    }
+
+    .f-info-links a {
+        margin: 0 0.5rem;
+    }
+
+    .f-info-socials i {
+        margin: 0 0.5rem;
+    }
+}
+/* Remove underline from card links */
+.listing-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Card Styling */
+.listing-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.listing-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Image Styling */
+.listing-img {
+    height: 250px;
+    object-fit: cover;
+}
+
+/* Title */
+.card-title {
+    font-weight: 600;
+}
+
+
+body {
+    background-color: #f8f9fa;
+}
+
+/* Wider layout like screenshot */
+.form-wrapper {
+    width: 55%;
+    margin: 30px auto;
+}
+
+.form-wrapper h2 {
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Form spacing */
+.form-group {
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fff;
+}
+
+.form-group textarea {
+    height: 80px;
+    resize: none;
+}
+
+/* Price + Country side by side */
+.row-group {
+    display: flex;
+    gap: 20px;
+}
+
+.half {
+    width: 50%;
+}
+
+/* Button styling like screenshot */
+.submit-btn {
+    margin-top: 15px;
+    padding: 8px 16px;
+    background-color: #ff385c;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #e03150;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-wrapper {
+        width: 90%;
+    }
+
+    .row-group {
+        flex-direction: column;
+    }
+
+    .half {
+        width: 100%;
+    }
+}
+
+.details-wrapper {
+    width: 65%;
+    margin: 50px auto;
+}
+
+.details-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.details-img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    display: block;
+}
+
+.details-content {
+    padding: 28px 32px;
+}
+
+.details-content h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 18px;
+    color: #ff385c;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.description {
+    color: #555;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.location {
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+.btn-group {
+    display: flex;
+    gap: 12px;
+}
+
+.edit-btn {
+    background-color: #ff385c;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.edit-btn:hover {
+    background-color: #e03150;
+}
+
+.delete-btn {
+    background-color: #222;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.delete-btn:hover {
+    background-color: #000;
+}
+
+@media (max-width: 768px) {
+    .details-wrapper {
+        width: 92%;
+    }
+
+    .details-img {
+        height: 250px;
+    }
+}
+/* Reviews Section Container */
+/* ===== REVIEWS SECTION ===== */
+
+.reviews-section {
+    margin-top: 40px;
+    padding: 20px;
+    max-width: 550px;              /* makes it compact */
+    background: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* heading */
+
+.reviews-section h3 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: #333;
+}
+
+
+/* ===== REVIEW FORM ===== */
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* textarea */
+
+.review-form textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    font-size: 14px;
+}
+
+
+/* submit button */
+
+.submit-review-btn {
+    width: 140px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    background: #ff385c;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.submit-review-btn:hover {
+    background: #e03150;
+}
+
+
+/* ===== STAR RATING INPUT ===== */
+
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    font-size: 26px;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    cursor: pointer;
+    color: #ccc;
+    transition: 0.2s;
+}
+
+/* hover stars */
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: gold;
+}
+
+/* selected stars */
+
+.star-rating input:checked ~ label {
+    color: gold;
+}
+
+
+/* ===== REVIEWS LIST ===== */
+
+.reviews-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+
+/* individual review */
+
+.review-item {
+    background: white;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border-left: 4px solid #ff385c;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* username */
+
+.review-item strong {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 3px;
+    color: #333;
+}
+
+
+/* stars display */
+
+.review-stars {
+    color: #f4b400;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+/* review text */
+
+.review-item p {
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+}
+
+#map{
+    height: 400px;
+    width: 100%;
+  }
+
+ #filters {
+  display: flex;              /* makes items horizontal */
+  flex-direction: row;        /* ensure row layout */
+  align-items: center;
+  gap: 35px;
+
+  padding: 15px 20px;
+  overflow-x: auto;           /* enables horizontal scroll */
+  border-bottom: 1px solid #ddd;
+}
+
+/* hide scrollbar (optional, looks clean) */
+#filters::-webkit-scrollbar {
+  display: none;
+}
+
+.category {
+  display: flex;
+  flex-direction: column;     /* icon ऊपर, text नीचे */
+  align-items: center;
+  min-width: 80px;
+
+  color: #717171;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.category i {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.category p {
+  font-size: 12px;
+  margin: 0;
+}
+
+.category:hover {
+  color: black;
+  border-bottom: 2px solid black;
+}
+
+.tax-info {
+    font-size: 12px;
+    color: #555;
+    display: none; /* Hidden by default, shown when tax switch is toggled */
+}
+
+.tax-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+/* Center container in navbar */
+.nav-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Search bar layout */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 30px;
+    padding: 0.3rem;
+    border: 1px solid #ddd;
+}
+
+/* Input styling */
+.search-input {
+    border: none;
+    outline: none;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    width: 250px;
+}
+
+/* Button styling */
+.btn-search {
+    background-color: #fe424d;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 0.4rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: 0.2s ease;
+}
+
+/* Hover */
+.btn-search:hover {
+    background-color: #e63b45;
+}

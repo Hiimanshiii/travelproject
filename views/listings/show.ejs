@@ -1,0 +1,164 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="details-wrapper">
+
+```
+<div class="details-card">
+
+    <!-- Image -->
+    <img src="<%= listing.image.url %>" 
+         alt="listing image" 
+         class="details-img">
+
+    <!-- Content -->
+    <div class="details-content">
+        <p>Logged user: <%= currentUser ? currentUser.username : "NOT LOGGED IN" %></p>
+        <h2><%= listing.title %></h2>
+
+        <p class="price">
+            ₹ <%= listing.price.toLocaleString("en-IN") %> / night
+        </p>
+
+        <p class="hosted-by">
+            Hosted by <strong><%= listing.owner.username %></strong>
+        </p>
+
+        <p class="description">
+            <%= listing.description %>
+        </p>
+
+        <p class="location">
+            <strong><%= listing.location %></strong>, 
+            <%= listing.country %>
+        </p>
+
+        <!-- Edit/Delete (only listing owner) -->
+        <% if (currentUser && String(currentUser._id) === String(listing.owner._id)) { %>
+
+        <div class="btn-group">
+
+            <a href="/listings/<%= listing._id %>/edit" class="edit-btn">
+                Edit
+            </a>
+
+            <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+                <button class="delete-btn" onclick="return confirm('Are you sure?')">
+                    Delete
+                </button>
+            </form>
+
+        </div>
+
+        <% } %>
+
+    </div>
+</div>
+
+<!-- Add Review (only logged in users) -->
+<% if(currentUser){ %>
+
+<h3>Leave a Review</h3>
+
+<form action="/listings/<%= listing._id %>/reviews" method="POST" class="review-form">
+
+    <label>Rating:</label>
+
+    <div class="star-rating">
+
+        <input type="radio" name="review[rating]" value="5" id="star5">
+        <label for="star5">★</label>
+
+        <input type="radio" name="review[rating]" value="4" id="star4">
+        <label for="star4">★</label>
+
+        <input type="radio" name="review[rating]" value="3" id="star3">
+        <label for="star3">★</label>
+
+        <input type="radio" name="review[rating]" value="2" id="star2">
+        <label for="star2">★</label>
+
+        <input type="radio" name="review[rating]" value="1" id="star1" checked>
+        <label for="star1">★</label>
+
+    </div>
+
+    <textarea name="review[text]" placeholder="Write your review here..." required></textarea>
+
+    <button type="submit" class="submit-review-btn">
+        Submit Review
+    </button>
+
+</form>
+
+<% } %>
+
+<!-- Reviews Section -->
+
+<h3>Reviews</h3>
+
+<% if (listing.reviews.length === 0) { %>
+
+    <p>No reviews yet.</p>
+
+<% } else { %>
+
+<ul class="reviews-list">
+
+    <% listing.reviews.forEach(review => { %>
+
+    <li class="review-item">
+
+        <div class="review-stars">
+
+            <% for(let i = 1; i <= 5; i++){ %>
+
+                <% if(i <= review.rating){ %>
+                    <i class="fa-solid fa-star"></i>
+                <% } else { %>
+                    <i class="fa-regular fa-star"></i>
+                <% } %>
+
+            <% } %>
+
+        </div>
+
+        <p><strong><%= review.author.username %></strong></p>
+
+        <p><%= review.text %></p>
+
+        <!-- Delete Review (only review author) -->
+
+        <% if(currentUser && String(review.author._id) === String(currentUser._id)){ %>
+
+        <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+
+            <button class="delete-review-btn">
+                Delete
+            </button>
+
+        </form>
+
+        <% } %>
+
+    </li>
+
+    <% }) %>
+
+</ul>
+
+<% } %>
+
+<div id="map" 
+     data-lat="<%= listing.coordinates.lat %>" 
+     data-lng="<%= listing.coordinates.lng %>">
+</div>
+
+</div>
+<style>
+  #map {
+    height: 400px;
+    width: 100%;
+    margin-top: 20px;
+  }
+</style>
+

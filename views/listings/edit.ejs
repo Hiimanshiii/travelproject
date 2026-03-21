@@ -1,0 +1,60 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="form-wrapper">
+    <h2>Edit Listing</h2>
+
+    <form action="/listings/<%= listing._id %>?_method=PUT" method="POST" novalidate class="listing-form needs-validation" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" name="listing[title]"
+                   value="<%= listing.title %>" required>
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea class="form-control" name="listing[description]" required>
+<%= listing.description %>
+            </textarea>
+        </div>
+
+         <div class="form-group">
+            <label>Original Image</label>
+            <img src="<%= originalImageUrl %>" alt="Original Image" >
+        </div>
+
+        <div class="form-group">
+            <label>Upload New Image</label>
+            <input class="form-control" name="listing[image]"
+            type="file"
+                   value="<%= listing.image.url %>" >
+        </div>
+
+        <!-- Price & Country side-by-side -->
+        <div class="row-group">
+            <div class="form-group half">
+                <label>Price (in INR)</label>
+                <input type="number" class="form-control" name="listing[price]"
+                       value="<%= listing.price %>" required>
+            </div>
+
+            <div class="form-group half">
+                <label>Country</label>
+                <input type="text" name="listing[country]" class="form-control"
+                       value="<%= listing.country %>" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Location</label>
+            <input type="text" class="form-control" name="listing[location]"
+                   value="<%= listing.location %>" required>
+        </div>
+
+        <button type="submit" class="submit-btn">
+            Update Listing
+        </button>
+
+    </form>
+</div>
+<script src="/public/js/script.js"></script>
