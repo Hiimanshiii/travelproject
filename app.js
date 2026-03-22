@@ -159,25 +159,10 @@ app.use((err, req, res, next) => {
     //res.status(statusCode).send(message);
 });
 
-app.listen(port,()=>{
+app.listen(port, "0.0.0.0", () => {
     console.log(`Server is running on port ${port}`);
 });
 
 
-// app.get('/listings',(req,res)=>{
-//     let sampleListings=new Listing(
-//         {
-//             title:"Beautiful Beach House",
-//             description:"A stunning beach house with ocean views.",
-//             price:250,
-//             location:"Malibu",
-//             country:"United States"
-//         });
-//         sampleListings.save().then(() => {
-//             console.log("Sample listing saved to database");
-//             res.send(sampleListings);
-//         }).catch(err => {
-//             console.error("Failed to save sample listing:", err);
-//         });
-// });
+
 
