@@ -41,27 +41,46 @@ if (!process.env.SESSION_SECRET) {
     console.warn('Warning: SESSION_SECRET is not set; using fallback secret (not secure).');
 }
 
-async function main(){
-    try {
-        await mongoose.connect(dbUrl);
+// Start MongoDB connection but don't block server startup
+mongoose.connect(dbUrl, { retryWrites: true, w: 'majority' })
+    .then(() => {
         console.log('Connected to MongoDB');
-    } catch (err) {
-        console.error('Failed to connect to MongoDB:', err);
-        process.exit(1); // fail fast in production
-    }
+    })
+    .catch(err => {
+        console.error('Initial MongoDB connection failed:', err.message);
+        console.log('Server will continue running; MongoDB will retry...');
+    });
+
+// Handle MongoDB connection events
+mongoose.connection.on('connected', () => {
+    console.log('Mongoose connected to MongoDB');
+});
+
+mongoose.connection.on('disconnected', () => {
+    console.warn('Mongoose disconnected from MongoDB');
+});
+
+mongoose.connection.on('error', (err) => {
+    console.error('MongoDB connection error:', err.message);
+});
+
+let store;
+try {
+    store = MongoStore.create({
+        mongoUrl: dbUrl,
+        crypto: { secret: sessionSecret },
+        touchAfter: 24*60*60
+    });
+
+    store.on('error', function(e){
+        console.log('Session store error (non-fatal):', e);
+    });
+} catch (err) {
+    console.warn('MongoStore creation failed, using memory store:', err.message);
+    // Fallback: use default MemoryStore (not suitable for production but prevents crash)
+    const session = require('express-session');
+    store = new session.MemoryStore();
 }
-
-main();
-
-const store=MongoStore.create({
-    mongoUrl: dbUrl,
-    crypto: { secret: sessionSecret },
-    touchAfter: 24*60*60
-});
-
-store.on("error", function(e){
-    console.log("Session store error", e);
-});
 
 const sessionOptions={
     store,
