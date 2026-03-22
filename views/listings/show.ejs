@@ -12,7 +12,7 @@
 
     <!-- Content -->
     <div class="details-content">
-        <p>Logged user: <%= typeof isLoggedIn !== 'undefined' && isLoggedIn ? locals.currentUser.username : "NOT LOGGED IN" %></p>
+        <p>Logged user: <%= (typeof isLoggedIn !== 'undefined' && isLoggedIn && currentUser) ? currentUser.username : "NOT LOGGED IN" %></p>
         <h2><%= listing.title %></h2>
 
         <p class="price">
@@ -33,7 +33,7 @@
         </p>
 
         <!-- Edit/Delete (only listing owner) -->
-        <% if (typeof isLoggedIn !== 'undefined' && isLoggedIn && String(locals.currentUser._id) === String(listing.owner._id)) { %>
+        <% if (typeof isLoggedIn !== 'undefined' && isLoggedIn && currentUser && String(currentUser._id) === String(listing.owner._id)) { %>
 
         <div class="btn-group">
 
@@ -128,7 +128,7 @@
 
         <!-- Delete Review (only review author) -->
 
-        <% if (typeof isLoggedIn !== 'undefined' && isLoggedIn && review.author && String(review.author._id) === String(locals.currentUser._id)) { %>
+        <% if (typeof isLoggedIn !== 'undefined' && isLoggedIn && currentUser && review.author && String(review.author._id) === String(currentUser._id)) { %>
 
         <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
 
