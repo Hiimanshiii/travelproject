@@ -158,7 +158,9 @@ app.use((req,res,next)=>{
 //Error handling middleware
 app.use((err, req, res, next) => {
     let {statusCode=500, message="Something went wrong"} = err;
-    res.render("error.ejs",{message});
+    if (!message) message = 'Something went wrong';
+    console.error(err);
+    res.status(statusCode).render('error', { message, stack: process.env.NODE_ENV !== 'production' ? err.stack : null});
     //res.status(statusCode).send(message);
 });
 

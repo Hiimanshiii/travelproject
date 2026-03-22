@@ -6,7 +6,7 @@
 <div class="details-card">
 
     <!-- Image -->
-    <img src="<%= listing.image.url %>" 
+    <img src="<%= listing.image?.url || '/images/default-listing.jpg' %>" 
          alt="listing image" 
          class="details-img">
 
@@ -20,7 +20,7 @@
         </p>
 
         <p class="hosted-by">
-            Hosted by <strong><%= listing.owner.username %></strong>
+            Hosted by <strong><%= listing.owner?.username || 'Unknown host' %></strong>
         </p>
 
         <p class="description">
@@ -96,7 +96,7 @@
 
 <h3>Reviews</h3>
 
-<% if (listing.reviews.length === 0) { %>
+<% if (!Array.isArray(listing.reviews) || listing.reviews.length === 0) { %>
 
     <p>No reviews yet.</p>
 
@@ -122,13 +122,13 @@
 
         </div>
 
-        <p><strong><%= review.author.username %></strong></p>
+        <p><strong><%= review.author?.username || 'Anonymous' %></strong></p>
 
         <p><%= review.text %></p>
 
         <!-- Delete Review (only review author) -->
 
-        <% if (typeof isLoggedIn !== 'undefined' && isLoggedIn && String(review.author._id) === String(locals.currentUser._id)) { %>
+        <% if (typeof isLoggedIn !== 'undefined' && isLoggedIn && review.author && String(review.author._id) === String(locals.currentUser._id)) { %>
 
         <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
 
