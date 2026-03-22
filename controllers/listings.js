@@ -12,16 +12,32 @@ module.exports.newForm = wrapAsync(async (req, res) => {
     res.render("listings/new");
 });
 
+const mongoose = require('mongoose');
+
 module.exports.show = wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id)
-    .populate({path: "reviews", populate: {path: "author"}})
-    .populate("owner");
-    if(!listing){
-        req.flash("error","Listing not found!");
-        return res.redirect("/listings");
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        req.flash('error', 'Invalid listing ID.');
+        return res.redirect('/listings');
     }
-    res.render("listings/show", { listing });
+
+    const listing = await Listing.findById(id)
+        .populate({ path: 'reviews', populate: { path: 'author' } })
+        .populate('owner');
+
+    if(!listing){
+        req.flash('error','Listing not found!');
+        return res.redirect('/listings');
+    }
+
+    // Hydrate defaults to avoid template crash
+    if (!listing.image) listing.image = { url: '/images/default-listing.jpg', filename: '' };
+    if (!listing.coordinates) listing.coordinates = { lat: 0, lng: 0 };
+    if (!listing.owner) listing.owner = { username: 'Unknown host' };
+    if (!Array.isArray(listing.reviews)) listing.reviews = [];
+
+    res.render('listings/show', { listing });
 });
 
 

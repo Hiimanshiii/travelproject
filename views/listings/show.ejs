@@ -148,10 +148,14 @@
 
 <% } %>
 
+<% if (listing.coordinates && listing.coordinates.lat != null && listing.coordinates.lng != null) { %>
 <div id="map" 
      data-lat="<%= listing.coordinates.lat %>" 
      data-lng="<%= listing.coordinates.lng %>">
 </div>
+<% } else { %>
+<div class="alert alert-info">Map is not available for this listing.</div>
+<% } %>
 
 </div>
 <style>
