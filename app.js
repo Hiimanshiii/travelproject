@@ -31,22 +31,32 @@ app.use(express.static(path.join(__dirname,'public')));
 //         await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
 // }
 
-const dbUrl=process.env.ATLASDB_URL;
+const dbUrl = process.env.ATLASDB_URL || 'mongodb://127.0.0.1:27017/wanderlust';
+const sessionSecret = process.env.SESSION_SECRET || 'change-this-secret-in-production';
 
-async function main(){
-        await mongoose.connect(dbUrl);
+if (!process.env.ATLASDB_URL) {
+    console.warn('Warning: ATLASDB_URL is not set; using local MongoDB fallback.');
+}
+if (!process.env.SESSION_SECRET) {
+    console.warn('Warning: SESSION_SECRET is not set; using fallback secret (not secure).');
 }
 
-main().then(() => {
-    console.log("Connected to MongoDB");
-}).catch(err => {
-    console.error("Failed to connect to MongoDB:", err);
-});
+async function main(){
+    try {
+        await mongoose.connect(dbUrl);
+        console.log('Connected to MongoDB');
+    } catch (err) {
+        console.error('Failed to connect to MongoDB:', err);
+        process.exit(1); // fail fast in production
+    }
+}
+
+main();
 
 const store=MongoStore.create({
-    mongoUrl:dbUrl,
-    crypto:{secret:process.env.SESSION_SECRET},
-    touchAfter:24*60*60
+    mongoUrl: dbUrl,
+    crypto: { secret: sessionSecret },
+    touchAfter: 24*60*60
 });
 
 store.on("error", function(e){
@@ -55,7 +65,7 @@ store.on("error", function(e){
 
 const sessionOptions={
     store,
-    secret:process.env.SESSION_SECRET,
+    secret: sessionSecret,
     resave:false,
     saveUninitialized:false, 
     cookie:{
@@ -101,14 +111,13 @@ app.get("/demouser", async (req, res) => {
 });
 
 
-app.use('/listings',listingRoutes);
-app.use('/listings/:id/reviews',reviewRoutes);
-app.use('/',userRoutes);
-
-// Redirect root to listings index
 app.get('/', (req, res) => {
     res.redirect('/listings');
 });
+
+app.use('/listings',listingRoutes);
+app.use('/listings/:id/reviews',reviewRoutes);
+app.use('/',userRoutes);
 
 //Catch-all route for handling 404 errors
 app.use((req,res,next)=>{
