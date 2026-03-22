@@ -105,7 +105,10 @@ app.use('/listings',listingRoutes);
 app.use('/listings/:id/reviews',reviewRoutes);
 app.use('/',userRoutes);
 
-
+// Redirect root to listings index
+app.get('/', (req, res) => {
+    res.redirect('/listings');
+});
 
 //Catch-all route for handling 404 errors
 app.use((req,res,next)=>{
