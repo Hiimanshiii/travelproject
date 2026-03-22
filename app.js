@@ -127,6 +127,7 @@ app.use((req,res,next)=>{
     res.locals.error=req.flash('error');
     res.locals.currentUser=req.user || null;
     res.locals.currUser=req.user || null; // backward compatibility for legacy templates
+    res.locals.isLoggedIn = req.isAuthenticated();
     next();
 });
 
