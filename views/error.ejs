@@ -1,5 +1,5 @@
 <% layout("/layouts/boilerplate") %>
 
 <div class="alert alert-danger" role="alert">
-    <p class="alert-heading"><%= message %></p>
+    <p class="alert-heading"><%= locals.message || "Something went wrong" %></p>
 </div>
