@@ -101,7 +101,7 @@ const sessionOptions={
         maxAge:1000*60*60*24*7,
         httpOnly:true,
         sameSite: "lax",
-        secure: process.env.NODE_ENV === "production"
+        secure: true 
     }
 };
 
