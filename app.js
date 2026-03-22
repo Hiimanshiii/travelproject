@@ -42,7 +42,16 @@ if (!process.env.SESSION_SECRET) {
 }
 
 // Start MongoDB connection but don't block server startup
-mongoose.connect(dbUrl, { retryWrites: true, w: 'majority' })
+const mongoOptions = {
+    retryWrites: true,
+    w: 'majority',
+    tls: true,
+    maxPoolSize: 10,
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000,
+};
+
+mongoose.connect(dbUrl, mongoOptions)
     .then(() => {
         console.log('Connected to MongoDB');
     })
