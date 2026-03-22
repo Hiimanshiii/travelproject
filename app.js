@@ -3,7 +3,7 @@ if(process.env.NODE_ENV!=='production'){
 }
 const express=require('express');
 const app=express();
-const port=8080;
+const port = process.env.PORT || 8080;
 const mongoose=require('mongoose');
 const path=require('path');
 const methodOverride=require('method-override');
@@ -45,7 +45,7 @@ main().then(() => {
 
 const store=MongoStore.create({
     mongoUrl:dbUrl,
-    crypto:{secret:"mysecretkey"},
+    crypto:{secret:process.env.SESSION_SECRET},
     touchAfter:24*60*60
 });
 
@@ -55,7 +55,7 @@ store.on("error", function(e){
 
 const sessionOptions={
     store,
-    secret:"mysecretkey",
+    secret:process.env.SESSION_SECRET,
     resave:false,
     saveUninitialized:false, 
     cookie:{
@@ -85,7 +85,8 @@ app.use((req,res,next)=>{
 app.use((req,res,next)=>{
     res.locals.success=req.flash('success');
     res.locals.error=req.flash('error');
-    res.locals.currentUser=req.user;
+    res.locals.currentUser=req.user || null;
+    res.locals.currUser=req.user || null; // backward compatibility for legacy templates
     next();
 });
 
